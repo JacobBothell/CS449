@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 /* This app uses Android tool bar in AppCompatActivity.
    The tool bar can also be specified as a view element.
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     static final private String TAG = "Count Much More";
 
-    private int count = 0;
+    private int strike = 0;
+    private int ball   = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,58 +35,84 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Log.i(TAG, "Starting onCreate...");
         setContentView(R.layout.activity_main);
 
-        View incrementButton = findViewById(R.id.inc_button);
+        View strikeButton = findViewById(R.id.strike_button);
         // This class implements the onClickListener interface.
         // Passing 'this' to setOnClickListener means the
         //   onClick method in this class will get called
         //   when the button is clicked.
-        incrementButton.setOnClickListener(this);
+        strikeButton.setOnClickListener(this);
 
-        View decrementButton = findViewById(R.id.dec_button);
-        decrementButton.setOnClickListener(this);
+        View ballButton = findViewById(R.id.ball_button);
+        ballButton.setOnClickListener(this);
 
         updateCount();
     }
 
     private void updateCount() {
-        TextView t = (TextView)findViewById(R.id.count_value);
-        t.setText(Integer.toString(count));
+        TextView t = (TextView)findViewById(R.id.strike_value);
+        t.setText(Integer.toString(strike));
+        TextView s = (TextView)findViewById(R.id.ball_value);
+        s.setText(Integer.toString(ball));
+    }
+
+    private void reset() {
+        strike = 0;
+        ball = 0;
+        updateCount();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.inc_button:
+            case R.id.strike_button:
                 // Start count over if user tries to increment
-                //   beyond 9.
-                if (count == 9) {
+                //   beyond 3.
+                if (strike == 3) {
                     // Builder is an inner class so we have to qualify it
                     // with its outer class: AlertDialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     //builder.setTitle("Dialog box");
-                    builder.setMessage("Max count reached. Start over?");
+                    builder.setMessage("He's OUT!");
                     builder.setCancelable(false);
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            count = 0;
+                            strike = 0;
+                            ball = 0;
                             // Note, you have to call update count here because.
                             //   the call builder.show() below is non blocking.
                             updateCount();
                         }
                     });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    builder.show();
+                }
+                else {
+                    strike++;
+                }
+                break;
+            case R.id.ball_button:
+                // Start count over if user tries to increment
+                //   beyond 4.
+                if (ball == 4) {
+                    // Builder is an inner class so we have to qualify it
+                    // with its outer class: AlertDialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    //builder.setTitle("Dialog box");
+                    builder.setMessage("Walk Him!");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Do nothing
+                            strike = 0;
+                            ball = 0;
+                            // Note, you have to call update count here because.
+                            //   the call builder.show() below is non blocking.
+                            updateCount();
                         }
                     });
                     builder.show();
                 }
                 else {
-                    count++;
+                    ball++;
                 }
-                break;
-            case R.id.dec_button:
-                count--;
                 break;
         }
         updateCount();
@@ -102,11 +130,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case R.id.about_menu:
+                startActivity(new Intent(this, About.class));
+                return true;
+            case R.id.reset_menu:
+                reset();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Count Much More</string>
-    <string name="action_settings">Settings</string>
-    <string name="count_value">0</string>
-    <string name="count_label">Count:</string>
-    <string name="increment_button_label">Increment</string>
-    <string name="decrement_button_label">Decrement</string>
+    <string name="app_name">Umpire Buddy</string>
+    <string name="reset_menu">Reset</string>
+    <string name="strike_value">0</string>
+    <string name="ball_value">0</string>
+    <string name="strike_label">Strikes:</string>
+    <string name="ball_label">Balls:</string>
+    <string name="strike_button_label">Strike</string>
+    <string name="ball_button_label">Ball</string>
+    <string name="about_menu">About</string>
+    <string name="about_hello_world">Jacob Bothell says hello</string>
 
 </resources>
 
