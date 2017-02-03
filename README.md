@@ -1,4 +1,4 @@
-# Sample Android Code for my CS449 class
+# CS449 Examples and projects
 
 <h3>Apps and their features:</h3>
 
@@ -23,23 +23,6 @@ SQLLiteExample - SQLLite Example plus Exceptions and Assertions (in CourseGatewa
 3. Copy the folder for the project you want to your Android Studio projects folder
 4. Open the project in Android Studio
 
-<h3>Notes to self</h3>
+<h3>Copyright Notice</h3>
 
-To add a project:
-
-1. create the project with Android Studio.
-2. add a .gitignore file to the project's app folder that looks something like:
-
-/build
-
-If you don't, I think the .gitignore file in this root directory will cause the .gradle file for the project not to be included under version control.
-
-3. Open a git bash shell on the root folder
-
-4. Issue:<br/>
-   $ git add -A<br/>
-   $ git commit -m 'which project add/update'<br/>
-   $ git push<br/>
-
-5. To retrieve changes from from github.com:<br/>
-   $ git pull
+This code is a combination of a UMKC professor, Eddy Burris, and my code.
